@@ -37,11 +37,11 @@ from utils.slconfig import get_raw_dict
 def parser_args():
     parser = argparse.ArgumentParser(description='Query2Label MSCOCO Training')
     parser.add_argument('--dataname', help='dataname', default='odir', choices=['coco14', 'odir'])
-    parser.add_argument('--dataset_dir', help='dir of dataset', default='/comp_robot/liushilong/data/COCO14/')
+    parser.add_argument('--dataset_dir', help='dir of dataset', default='/kaggle/input/oia-odir-5k/oia-odir')
     parser.add_argument('--img_size', default=640, type=int,
                         help='size of input images')
 
-    parser.add_argument('--output', metavar='DIR', 
+    parser.add_argument('--output', metavar='DIR', default='/kaggle/working/',
                         help='path to output folder')
     parser.add_argument('--num_class', default=7, type=int,
                         help="Number of query slots")

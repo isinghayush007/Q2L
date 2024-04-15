@@ -4,7 +4,7 @@ from utils.cutout import SLCutoutPIL
 from randaugment import RandAugment
 import os.path as osp
 import os
-from odir_dataset import OdirDataset
+from dataset.odir_dataset import OdirDataset
 
 def get_datasets(args):
     if args.orid_norm:

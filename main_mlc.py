@@ -400,7 +400,7 @@ def main_worker(args, logger):
             if dist.get_rank() == 0:
                 save_checkpoint({
                     'epoch': epoch + 1,
-                    'arch': args.arch,
+                    # 'arch': args.arch,
                     'state_dict': state_dict,
                     'best_mAP': best_mAP,
                     'optimizer' : optimizer.state_dict(),
@@ -465,9 +465,12 @@ def train(train_loader, model, ema_m, criterion, optimizer, scheduler, epoch, ar
     model.train()
 
     end = time.time()
-    for i, (images, target) in enumerate(train_loader):
+    for i, batch in enumerate(train_loader):
         # measure data loading time
         data_time.update(time.time() - end)
+
+        images = batch['image'].float()
+        target = batch['labels'].float()
 
         images = images.cuda(non_blocking=True)
         target = target.cuda(non_blocking=True)
@@ -526,7 +529,10 @@ def validate(val_loader, model, criterion, args, logger):
     saved_data = []
     with torch.no_grad():
         end = time.time()
-        for i, (images, target) in enumerate(val_loader):
+        for i, batch in enumerate(val_loader):
+            images = batch['image'].float()
+            target = batch['labels'].float()
+            
             images = images.cuda(non_blocking=True)
             target = target.cuda(non_blocking=True)
 

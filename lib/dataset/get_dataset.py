@@ -49,16 +49,9 @@ def get_datasets(args):
             anno_path=osp.join(dataset_dir, 'annotations/instances_val2014.json'),
             input_transform=test_data_transform,
             labels_path='data/coco/val_label_vectors_coco14.npy',
-        )    
+        )  
 
-    else:
-        raise NotImplementedError("Unknown dataname %s" % args.dataname)
-
-    print("len(train_dataset):", len(train_dataset)) 
-    print("len(val_dataset):", len(val_dataset))
-
-
-    if args.dataname == 'odir':
+    elif args.dataname == 'odir':
         odir_root = '/kaggle/working'
         scale_size = 640
 
@@ -87,6 +80,12 @@ def get_datasets(args):
             split='test',
             data_file=os.path.join(odir_root, 'odir.npz'),
             transform=testTransform,
-            )
+            )  
+
+    else:
+        raise NotImplementedError("Unknown dataname %s" % args.dataname)
+
+    print("len(train_dataset):", len(train_dataset)) 
+    print("len(val_dataset):", len(val_dataset))
 
     return train_dataset, val_dataset
